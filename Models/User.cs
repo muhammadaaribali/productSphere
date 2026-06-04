@@ -8,5 +8,5 @@ public class User
     public required string PasswordHash { get; set; }
     public int CompanyId { get; set; }
 
-    public required Company Company { get; set; }
+    public  Company? Company { get; set; }
 }

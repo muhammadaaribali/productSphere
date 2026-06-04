@@ -4,11 +4,13 @@ using sp1.Models; //import the User model from the Models folder
 
 namespace sp1.Data;
 
-public class AppDbContext : DbContext //create a new class called AppDbContext that inherits from DbContext
+public class AppDbContext : DbContext 
+//create a new class called AppDbContext that inherits from DbContext
+
+ //options are hostname, port, database name, username, and password for the PostgreSQL database
 
 {
-    public AppDbContext
-    
+    public AppDbContext 
     (DbContextOptions<AppDbContext> options) : base(options) { } 
     
     //create a constructor that takes in DbContextOptions and passes it to the base class constructor
