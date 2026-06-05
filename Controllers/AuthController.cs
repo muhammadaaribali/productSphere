@@ -5,7 +5,8 @@ using sp1.Models;
 
 namespace sp1.Controllers;
 
-[ApiController]
+[ApiController] 
+//indicates that this class is an API controller and enables features like automatic model validation and binding source inference
 [Route("api/[controller]")]
 public class AuthController : ControllerBase
 //create a new controller called AuthController that inherits from ControllerBase
@@ -34,5 +35,32 @@ public class AuthController : ControllerBase
         _context.SaveChanges();
 
         return Ok("User registered successfully");
+    }
+
+    [HttpPost("login")]
+    public IActionResult Login(LoginDto dto)
+    {
+        var user = _context.Users.FirstOrDefault(u => u.Email == dto.Email);
+
+        /*SELECT *
+        FROM "Users"
+        WHERE "Email" = 'aarib@gmail.com'
+        LIMIT 1;
+        */
+
+        if (user == null)
+        {
+            return Unauthorized("Invalid email or password");
+        }
+
+        bool isPasswordValid =
+            BCrypt.Net.BCrypt.Verify(dto.Password, user.PasswordHash);
+
+        if (!isPasswordValid)
+        {
+            return Unauthorized("Invalid email or password");
+        }
+
+        return Ok("Login successful");
     }
 }
