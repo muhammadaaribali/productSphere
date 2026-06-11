@@ -20,4 +20,6 @@ public class AppDbContext : DbContext
     //create a DbSet property for the User model, which will allow us to interact with the Users table in the database
 
     public DbSet<Company> Companies { get; set; }
+
+    public DbSet<Product> Products { get; set; }
 }
