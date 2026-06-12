@@ -33,4 +33,16 @@ public class ProductsController : ControllerBase
 
         return Ok("Product created successfully");
     }
+
+    [HttpGet]
+    public IActionResult GetProducts()
+    {
+        var products = _context.Products
+            .OrderByDescending(p => p.Id)
+            .ToList(); 
+            //retrieve all products from the database, ordered by Id in descending order (newest first)
+            //toList() is used to execute the query and return the results as a list of Product objects
+
+        return Ok(products);
+    }
 }
