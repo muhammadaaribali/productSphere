@@ -1,9 +1,20 @@
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Login from "./pages/Login";
+import Products from "./pages/Products";
+
 function App() {
   return (
-    <div>
-      <h1>Product App</h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/products" element={<Products />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
 export default App;
+
+//BrowserRouter tells my applicaiton will have multile pages
+//Routes is a container for all the routes in my application
+//Route is a single route in my application
