@@ -1,6 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using sp1.Data;//import the AppDbContext class from the Data folder
+using sp1.Data;
+//import the AppDbContext class from the Data folder
 
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 //create a new WebApplicationBuilder instance, which will be used to configure the application
 
@@ -30,10 +34,45 @@ builder.Services.AddCors(options =>
         });
 });
 
+var jwtSettings = builder.Configuration.GetSection("Jwt");
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultAuthenticateScheme =
+        JwtBearerDefaults.AuthenticationScheme;
+
+    options.DefaultChallengeScheme =
+        JwtBearerDefaults.AuthenticationScheme;
+})
+.AddJwtBearer(options =>
+{
+    options.TokenValidationParameters =
+        new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = true,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+
+            ValidIssuer = jwtSettings["Issuer"],
+            ValidAudience = jwtSettings["Audience"],
+
+            IssuerSigningKey =
+                new SymmetricSecurityKey(
+                    Encoding.UTF8.GetBytes(jwtSettings["Key"]!)
+                )
+        };
+});
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
 //build the application using the configured services and middleware
 
 app.UseCors("ReactPolicy");
+
+app.UseAuthentication();
+app.UseAuthorization();
 
 if (app.Environment.IsDevelopment())
 {

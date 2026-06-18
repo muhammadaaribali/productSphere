@@ -1,9 +1,13 @@
 import { useState } from "react";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
+//useNavigate is a hook that allows us to navigate to different pages in our application
+
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
     try {
@@ -12,7 +16,9 @@ function Login() {
         password
       });
 
-      console.log(response.data);
+      localStorgage.setItem("token", response.data.token);
+
+      navigate("/products");
 
       alert("Login successful");
     }

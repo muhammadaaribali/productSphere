@@ -2,6 +2,10 @@ using Microsoft.AspNetCore.Mvc;
 using sp1.Data;
 using sp1.DTOs;
 using sp1.Models;
+using Microsoft.IdentityModel.Tokens;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace sp1.Controllers;
 
@@ -12,12 +16,52 @@ public class AuthController : ControllerBase
 //create a new controller called AuthController that inherits from ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly IConfiguration _configuration;
 
-    public AuthController(AppDbContext context)
+    public AuthController(AppDbContext context,IConfiguration configuration)
     {
         _context = context;
         //create a constructor that takes in an AppDbContext and assigns it to a private field
+        _configuration = configuration;
     }
+
+    private string GenerateJwtToken(User user)
+{
+    var claims = new[]
+    {
+        new Claim(
+            ClaimTypes.NameIdentifier,
+            user.Id.ToString()
+        ),
+
+        new Claim(
+            ClaimTypes.Email,
+            user.Email
+        )
+    };
+
+    var key = new SymmetricSecurityKey(
+        Encoding.UTF8.GetBytes(
+            _configuration["Jwt:Key"]!
+        )
+    );
+
+    var credentials = new SigningCredentials(
+        key,
+        SecurityAlgorithms.HmacSha256
+    );
+
+    var token = new JwtSecurityToken(
+        issuer: _configuration["Jwt:Issuer"],
+        audience: _configuration["Jwt:Audience"],
+        claims: claims,
+        expires: DateTime.UtcNow.AddHours(1),
+        signingCredentials: credentials
+    );
+
+    return new JwtSecurityTokenHandler()
+        .WriteToken(token);
+}
 
     [HttpPost("register")]
     public IActionResult Register(RegisterDto dto)
@@ -61,6 +105,10 @@ public class AuthController : ControllerBase
             return Unauthorized("Invalid email or password");
         }
 
-        return Ok("Login successful");
+        var token = GenerateJwtToken(user);
+        return Ok(new
+        {
+            token = token
+        });
     }
 }
