@@ -19,8 +19,21 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         //get the connection string from the appsettings.json file and use it to configure the DbContext to use PostgreSQL
     ));
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("ReactPolicy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
+});
+
 var app = builder.Build();
 //build the application using the configured services and middleware
+
+app.UseCors("ReactPolicy");
 
 if (app.Environment.IsDevelopment())
 {

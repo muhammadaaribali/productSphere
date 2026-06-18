@@ -30,7 +30,7 @@ function Login() {
       <input
         type="email"
         placeholder="Email"
-        value={email}
+        value={email} //initially email = ""
         onChange={(e) => setEmail(e.target.value)}
       />
 
