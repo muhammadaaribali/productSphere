@@ -16,11 +16,10 @@ function Login() {
         password
       });
 
-      localStorgage.setItem("token", response.data.token);
+      alert("Login successful");
+      localStorage.setItem("token", response.data.token);
 
       navigate("/products");
-
-      alert("Login successful");
     }
     catch (error) {
       console.error(error);

@@ -35,6 +35,8 @@ function Products() {
     );
 }
 
+export default Products;
+
 /*
 User clicks Login
         ↓
