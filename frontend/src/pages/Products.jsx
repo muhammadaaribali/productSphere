@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import api from "../services/api";
+import { useNavigate } from "react-router-dom";
 
 function Products() {
     const [products, setProducts] = useState([]);
@@ -19,9 +20,18 @@ function Products() {
         }
     };
 
+    const navigate = useNavigate();
+
     return (
         <div>
             <h1>Products</h1>
+
+            <button onClick={()=> navigate("/create-product")}>
+            </button>
+
+            <br/>
+            <br/>
+            
             {products.map(product => (
                 <div key={product.id}>
                     <h3>{product.name}</h3>

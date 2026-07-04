@@ -8,6 +8,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/products" element={<Products />} />
+        <Route path="/create-product" element={<CreateProduct />} />
       </Routes>
     </BrowserRouter>
   );
