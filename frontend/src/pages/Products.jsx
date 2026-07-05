@@ -27,6 +27,7 @@ function Products() {
             <h1>Products</h1>
 
             <button onClick={()=> navigate("/create-product")}>
+                Create Product
             </button>
 
             <br/>
