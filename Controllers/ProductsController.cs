@@ -1,4 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 using sp1.Data;
 using sp1.DTOs;
 using sp1.Models;
@@ -17,15 +19,23 @@ public class ProductsController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize]
     public IActionResult CreateProduct(CreateProductDto dto)
     {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (userId == null)
+        {
+            return Unauthorized();
+        }
+
         var product = new Product
         {
             Name = dto.Name,
             Description = dto.Description,
             Price = dto.Price,
             ImageUrl = dto.ImageUrl,
-            UserId = dto.UserId
+            UserId = int.Parse(userId)
         };
 
         _context.Products.Add(product);

@@ -10,13 +10,23 @@ function CreateProduct(){
 
     const handleSubmit = async() =>{
         try{
+
+            const token = localStorage.getItem("token");
             await api.post("/Products", {
                 name,
                 description,
                 price,
                 imageUrl,
-                userId: 1
-            });
+            },
+            //these details goes to dto
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`
+                }
+                //we are sending the token in the Authorization header of the request, so that the backend can verify that the user is authenticated and authorized to create a product
+            }
+            
+        );
 
             alert("Product created successfully!");
         }
