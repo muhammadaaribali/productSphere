@@ -53,6 +53,13 @@ function Login() {
       <button onClick={handleLogin}>
         Login
       </button>
+
+      <br /><br />
+      <p>Don't have an account? <br />
+      <button onClick={() => navigate("/register")}>
+        Register here
+      </button>
+      </p>
     </div>
   );
 }

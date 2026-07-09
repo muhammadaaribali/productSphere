@@ -3,47 +3,60 @@ import api from "../services/api";
 import { useNavigate } from "react-router-dom";
 
 function Products() {
-    const [products, setProducts] = useState([]);
+        const [products, setProducts] = useState([]);
 
-    useEffect(() => {
-        fetchProducts();
-    }, []);
+        useEffect(() => {
+                fetchProducts();
+        }, []);
 
-    const fetchProducts = async () => {
-        try {
-            const response = await api.get("/Products");
-            setProducts(response.data);
+        const fetchProducts = async () => {
+                try {
+                        const response = await api.get("/Products");
+                        setProducts(response.data);
+                }
+
+                catch (error) {
+                        console.error(error);
+                }
+        };
+
+        const navigate = useNavigate();
+
+        const handleLogout = () => {
+                localStorage.removeItem('token');
+                navigate("/");
         }
 
-        catch (error) {
-            console.error(error);
-        }
-    };
+        return (
+                <div>
+                        <h1>Products</h1>
 
-    const navigate = useNavigate();
+                        <button onClick={handleLogout}>
+                                Logout
+                        </button>
 
-    return (
-        <div>
-            <h1>Products</h1>
 
-            <button onClick={()=> navigate("/create-product")}>
-                Create Product
-            </button>
+                        <br />
+                        <br />
 
-            <br/>
-            <br/>
-            
-            {products.map(product => (
-                <div key={product.id}>
-                    <h3>{product.name}</h3>
-                    <p>{product.description}    
-                    </p>
-                    <p>Price: {product.price}   </p>
-                    <hr />
+                        <button onClick={() => navigate("/create-product")}>
+                                Create Product
+                        </button>
+
+                        <br />
+                        <br />
+
+                        {products.map(product => (
+                                <div key={product.id}>
+                                        <h3>{product.name}</h3>
+                                        <p>{product.description}
+                                        </p>
+                                        <p>Price: {product.price}   </p>
+                                        <hr />
+                                </div>
+                        ))}
                 </div>
-            ))}
-        </div>
-    );
+        );
 }
 
 export default Products;
