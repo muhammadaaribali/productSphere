@@ -3,6 +3,7 @@ import Login from "./pages/Login";
 import Products from "./pages/Products";
 import CreateProduct from "./pages/CreateProduct";
 import Register from "./pages/Register";
+import ProtectedRoute from "./ProtectedRoute";
 
 function App() {
   return (
@@ -10,8 +11,17 @@ function App() {
       <Routes>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/products" element={<Products />} />
-        <Route path="/create-product" element={<CreateProduct />} />
+        <Route path="/products" element={
+          <ProtectedRoute>
+            <Products />
+          </ProtectedRoute>
+        } 
+        />
+        <Route path="/create-product" element={
+          <ProtectedRoute>
+            <CreateProduct />
+          </ProtectedRoute>
+        } />
       </Routes>
     </BrowserRouter>
   );
