@@ -28,34 +28,55 @@ function Products() {
         }
 
         return (
-                <div>
-                        <h1>Products</h1>
 
-                        <button onClick={handleLogout}>
-                                Logout
-                        </button>
+               <div className="products-page">
 
+        <div className="navbar">
 
-                        <br />
-                        <br />
+            <h1>ProductHub</h1>
 
-                        <button onClick={() => navigate("/create-product")}>
-                                Create Product
-                        </button>
+            <div className="nav-buttons">
 
-                        <br />
-                        <br />
+                <button onClick={() => navigate("/create-product")}>
+                    Add Product
+                </button>
 
-                        {products.map(product => (
-                                <div key={product.id}>
-                                        <h3>{product.name}</h3>
-                                        <p>{product.description}
-                                        </p>
-                                        <p>Price: {product.price}   </p>
-                                        <hr />
-                                </div>
-                        ))}
+                <button onClick={handleLogout}>
+                    Logout
+                </button>
+
+            </div>
+
+        </div>
+
+        <div className="products-container">
+
+            {products.map(product => (
+
+                <div className="product-card" key={product.id}>
+
+                    <img
+                        src={product.imageUrl}
+                        alt={product.name}
+                        onError={(e) => {
+                                e.target.src="https://placehold.co/400x250?text=No+Image";
+                        }}
+                    />
+
+                    <h2>{product.name}</h2>
+
+                    <p>{product.description}</p>
+
+                    <h3>${product.price}</h3>
+
                 </div>
+
+            ))}
+
+        </div>
+
+    </div>
+
         );
 }
 
