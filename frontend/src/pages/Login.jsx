@@ -16,7 +16,7 @@ function Login() {
         password
       });
 
-      alert("Login successful");
+      //alert("Login successful");
       localStorage.setItem("token", response.data.token);
 
       navigate("/products");
@@ -24,7 +24,7 @@ function Login() {
     catch (error) {
       console.error(error);
 
-      alert("Login failed");
+      //alert("Login failed");
     }
   };
 

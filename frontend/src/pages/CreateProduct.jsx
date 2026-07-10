@@ -6,19 +6,21 @@ function CreateProduct(){
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
-    const [imageUrl, setImageUrl] = useState("");
+    const [image, setImage] = useState(null);
 
     const handleSubmit = async() =>{
         try{
 
             const token = localStorage.getItem("token");
-            await api.post("/Products", {
-                name,
-                description,
-                price,
-                imageUrl,
-            },
-            //these details goes to dto
+
+            const formData = new FormData();
+
+            formData.append("name",name);
+            formData.append("description",description);
+            formData.append("price",price);
+            formData.append("image",image);
+
+            await api.post("/Products", formData,
             {
                 headers: {
                     Authorization: `Bearer ${token}`
@@ -27,7 +29,6 @@ function CreateProduct(){
             }
             
         );
-
             alert("Product created successfully!");
         }
 
@@ -68,10 +69,9 @@ function CreateProduct(){
             />
 
             <input
-                type="text"
-                placeholder="Image URL"
-                value={imageUrl}
-                onChange={(e) => setImageUrl(e.target.value)}
+                type="file"
+                accept="image/*"
+                onChange={(e) => setImage(e.target.files[0])}
             />
 
             <button onClick={handleSubmit}>

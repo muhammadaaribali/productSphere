@@ -31,42 +31,58 @@ function Register() {
         }
     };
 
-    return (
-        <div>
-            <h1>Register</h1>
+   return (
+    <div className="auth-container">
+
+        <div className="auth-card">
+
+            <h1>ProductHub</h1>
+
+            <h2>Create Account</h2>
+
             <input
                 type="text"
-                placeholder="Name"
+                placeholder="Full Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
             />
 
-            <br /><br />
             <input
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
             />
-            
-            <br /><br />
+
             <input
                 type="password"
                 placeholder="Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
             />
-            <br /><br />
+
             <input
                 type="number"
                 placeholder="Company ID"
                 value={companyId}
                 onChange={(e) => setCompanyId(e.target.value)}
             />
-            <br /><br />
-            <button onClick={handleRegister}>Register</button>
+
+            <button onClick={handleRegister}>
+                Register
+            </button>
+
+            <p>
+                Already have an account?
+                <span onClick={() => navigate("/")}>
+                    Login
+                </span>
+            </p>
+
         </div>
-    )
+
+    </div>
+);
     
 }
 

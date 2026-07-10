@@ -83,6 +83,8 @@ if (app.Environment.IsDevelopment())
 
 // app.UseHttpsRedirection();
 
+app.UseStaticFiles();
+//enable the application to serve static files, such as HTML, CSS, and JavaScript files, from the wwwroot folder
 app.MapControllers();
 //map the controllers to the application's request pipeline, which will allow them to handle incoming HTTP requests
 
