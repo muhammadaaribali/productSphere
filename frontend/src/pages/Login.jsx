@@ -29,38 +29,43 @@ function Login() {
   };
 
   return (
-    <div>
-      <h1>Login</h1>
+     <div className="auth-container">
 
-      <input
-        type="email"
-        placeholder="Email"
-        value={email} //initially email = ""
-        onChange={(e) => setEmail(e.target.value)}
-      />
+        <div className="auth-card">
 
-      <br/><br/>
+            <h1>ProductHub</h1>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+            <h2>Login</h2>
 
-      <br /><br />
+            <input
+                type="email"
+                placeholder="Email"
+                value={email} //initially email = ""
+                onChange={(e) => setEmail(e.target.value)}
+            />
 
-      <button onClick={handleLogin}>
-        Login
-      </button>
+            <input
+                type="password"
+                placeholder="Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+            />
 
-      <br /><br />
-      <p>Don't have an account? <br />
-      <button onClick={() => navigate("/register")}>
-        Register here
-      </button>
-      </p>
+            <button onClick={handleLogin}>
+                Login
+            </button>
+
+            <p>
+                Don't have an account?
+                <span onClick={() => navigate("/register")}>
+                    Register
+                </span>
+            </p>
+
+        </div>
+
     </div>
+   
   );
 }
 

@@ -120,3 +120,77 @@ body{
     font-size:24px;
 
 }
+/* ================= AUTH PAGES ================= */
+
+.auth-container{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:#eef2f7;
+}
+
+.auth-card{
+    width:400px;
+    background:white;
+    padding:40px;
+    border-radius:14px;
+    box-shadow:0 10px 30px rgba(0,0,0,.1);
+    display:flex;
+    flex-direction:column;
+}
+
+.auth-card h1{
+    text-align:center;
+    color:#2563eb;
+    margin-bottom:10px;
+}
+
+.auth-card h2{
+    text-align:center;
+    margin-bottom:30px;
+}
+
+.auth-card input{
+    padding:14px;
+    margin-bottom:18px;
+    border:1px solid #ccc;
+    border-radius:8px;
+    font-size:15px;
+}
+
+.auth-card input:focus{
+    border-color:#2563eb;
+}
+
+.auth-card button{
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    background:#2563eb;
+    color:white;
+    font-size:16px;
+    font-weight:bold;
+    margin-top:10px;
+    transition:.3s;
+}
+
+.auth-card button:hover{
+    background:#1d4ed8;
+}
+
+.auth-card p{
+    text-align:center;
+    margin-top:25px;
+}
+
+.auth-card span{
+    color:#2563eb;
+    cursor:pointer;
+    font-weight:bold;
+    margin-left:5px;
+}
+
+.auth-card span:hover{
+    text-decoration:underline;
+}
