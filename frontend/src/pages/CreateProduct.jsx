@@ -38,45 +38,48 @@ function CreateProduct(){
     };
 
     return (
-        <div>
-            <h1>Create Product</h1>
+        <div className="auth-container">
 
-        <input
-            type="text"
-            placeholder="Product Name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-        />
+        <div className="auth-card">
 
-        <br /><br />
-        <input
-            type="text"
-            placeholder="Product Description"
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-        />
+            <h1>ProductHub</h1>
 
-        <br /><br />
+            <h2>Create Product</h2>
 
-        <input
-            type="number"
-            placeholder="Product Price"
-            value={price}
-            onChange={(e) => setPrice(e.target.value)}
-        />
+            <input
+                type="text"
+                placeholder="Product Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+            />
 
-        <br /><br />
+            <input
+                type="text"
+                placeholder="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+            />
 
-        <input
-            type="text"
-            placeholder="Product Image URL"
-            value={imageUrl}
-            onChange={(e) => setImageUrl(e.target.value)}
-        />
+            <input
+                type="number"
+                placeholder="Price"
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+            />
 
-        <br /><br />
+            <input
+                type="text"
+                placeholder="Image URL"
+                value={imageUrl}
+                onChange={(e) => setImageUrl(e.target.value)}
+            />
 
-        <button onClick={handleSubmit}>Create Product</button>
+            <button onClick={handleSubmit}>
+                Upload Product
+            </button>
+
+        </div>
+
     </div>
 
     );
