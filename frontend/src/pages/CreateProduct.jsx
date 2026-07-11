@@ -30,6 +30,7 @@ function CreateProduct(){
             
         );
             alert("Product created successfully!");
+            navigate("/products");
         }
 
         catch(error){

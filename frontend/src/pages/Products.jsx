@@ -56,18 +56,21 @@ function Products() {
                 <div className="product-card" key={product.id}>
 
                     <img
-                        src={product.imageUrl}
+                        src={`http://localhost:5067${product.imageUrl}`}
                         alt={product.name}
                         onError={(e) => {
                                 e.target.src="https://placehold.co/400x250?text=No+Image";
                         }}
                     />
 
-                    <h2>{product.name}</h2>
+                    <b><h2>{product.name}</h2></b>
 
                     <p>{product.description}</p>
 
                     <h3>${product.price}</h3>
+
+                    <p>Uploaded by: <b>{product.uploadedBy}</b></p>
+                    <br/>
 
                 </div>
 

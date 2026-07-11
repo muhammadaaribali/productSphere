@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using sp1.Data;
 using sp1.DTOs;
@@ -60,10 +61,16 @@ public class ProductsController : ControllerBase
     [HttpGet]
     public IActionResult GetProducts()
     {
-        var products = _context.Products
-            .OrderByDescending(p => p.Id)
+        var products = _context.Products.Include(p=> p.User).OrderByDescending(p=>p.Id).Select(p=> new ProductResponseDto
+            {
+                Id=p.Id,
+                Name=p.Name,
+                Description=p.Description,
+                Price=p.Price,
+                ImageUrl=p.ImageUrl,
+                UploadedBy=p.User.Name
+            })
             .ToList(); 
-            //retrieve all products from the database, ordered by Id in descending order (newest first)
             //toList() is used to execute the query and return the results as a list of Product objects
 
         return Ok(products);
@@ -101,4 +108,43 @@ FileStream
 Hard Disk
 (wwwroot/images/cat.png)
 
+
+
+React
+   │
+   │ api.get("/Products")
+   ▼
+ProductsController.GetProducts()
+   │
+   ▼
+_context.Products
+   │
+   ▼
+Include(User)
+   │
+   ▼
+Load each product's uploader
+   │
+   ▼
+Order newest first
+   │
+   ▼
+Convert Product → ProductResponseDto
+   │
+   ▼
+Execute query with ToList()
+   │
+   ▼
+Return HTTP 200 OK + JSON
+   │
+   ▼
+React receives the product list
+   │
+   ▼
+Displays:
+Product Name
+Description
+Price
+Image
+Uploaded by "name"
 */
