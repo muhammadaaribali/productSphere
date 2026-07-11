@@ -67,7 +67,7 @@ function Products() {
 
                     <p>{product.description}</p>
 
-                    <h3>${product.price}</h3>
+                    <h3>Rs:{product.price}</h3>
 
                     <p>Uploaded by: <b>{product.uploadedBy}</b></p>
                     <br/>

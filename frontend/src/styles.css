@@ -52,73 +52,52 @@ body{
 
     width:90%;
     max-width:1300px;
-
     margin:40px auto;
-
     display:grid;
-
     grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
-
     gap:30px;
 }
 
 .product-card{
 
     background:white;
-
     border-radius:14px;
-
     overflow:hidden;
-
     box-shadow:0 8px 20px rgba(0,0,0,.08);
-
     transition:.3s;
 }
 
 .product-card:hover{
-
     transform:translateY(-8px);
-
     box-shadow:0 15px 35px rgba(0,0,0,.15);
-
 }
 
 .product-card img{
 
     width:100%;
-
     height:220px;
-
     object-fit:cover;
-
 }
 
 .product-card h2{
 
     padding:18px 18px 10px;
-
     font-size:23px;
-
+    color:#646565
 }
 
 .product-card p{
 
     color:#666;
-
     padding:0 18px;
-
     line-height:24px;
-
 }
 
 .product-card h3{
 
     color:#2563eb;
-
     padding:18px;
-
     font-size:24px;
-
 }
 /* ================= AUTH PAGES ================= */
 
