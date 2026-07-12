@@ -23,25 +23,15 @@ builder.Services.AddDbContext<AppDbContext>(options =>
         //get the connection string from the appsettings.json file and use it to configure the DbContext to use PostgreSQL
     ));
 
-// builder.Services.AddCors(options =>
-// {
-//     options.AddPolicy("ReactPolicy",
-//         policy =>
-//         {
-//             policy.WithOrigins("http://localhost:5173","https://reliable-salmiakki-1c736c.netlify.app")
-//                   .AllowAnyHeader()
-//                   .AllowAnyMethod();
-//         });
-// });
-
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy("ReactPolicy", policy =>
-    {
-        policy.AllowAnyOrigin()
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-    });
+    options.AddPolicy("ReactPolicy",
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:5173","https://reliable-salmiakki-1c736c.netlify.app")
+                  .AllowAnyHeader()
+                  .AllowAnyMethod();
+        });
 });
 
 var jwtSettings = builder.Configuration.GetSection("Jwt");
