@@ -56,7 +56,7 @@ function Products() {
                 <div className="product-card" key={product.id}>
 
                     <img
-                        src={`http://localhost:5067${product.imageUrl}`}
+                        src={`${import.meta.env.VITE_BASE_URL || "http://localhost:5067"}${product.imageUrl}`}
                         alt={product.name}
                         onError={(e) => {
                                 e.target.src="https://placehold.co/400x250?text=No+Image";
