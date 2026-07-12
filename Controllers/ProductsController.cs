@@ -23,6 +23,10 @@ public class ProductsController : ControllerBase
     [Authorize]
     public IActionResult CreateProduct([FromForm] CreateProductDto dto)
     {
+        if(dto.Image == null || dto.Image.Length == 0)
+        {
+            return BadRequest("Image is required");
+        }
 
         var fileName = Guid.NewGuid().ToString() + Path.GetExtension(dto.Image.FileName);
         //dot.image,filename is the name of the uploaded file, and Path.GetExtension is used to get the file extension (e.g. .jpg, .png)
@@ -68,7 +72,7 @@ public class ProductsController : ControllerBase
                 Description=p.Description,
                 Price=p.Price,
                 ImageUrl=p.ImageUrl,
-                UploadedBy=p.User.Name
+                UploadedBy = p.User != null ? p.User.Name : "Unknown"
             })
             .ToList(); 
             //toList() is used to execute the query and return the results as a list of Product objects
