@@ -4,6 +4,8 @@ import api from "../services/api";
 
 function CreateProduct(){
 
+    const navigate = useNavigate();
+
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [price, setPrice] = useState("");
