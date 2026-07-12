@@ -27,7 +27,7 @@ function Products() {
                 navigate("/");
         }
 
-        console.log(product.imageUrl);
+        console.log(products.imageUrl);
         return (
 
                <div className="products-page">
