@@ -5,6 +5,7 @@ using System.Security.Claims;
 using sp1.Data;
 using sp1.DTOs;
 using sp1.Models;
+using sp1.Services;
 
 namespace sp1.Controllers;
 
@@ -13,32 +14,24 @@ namespace sp1.Controllers;
 public class ProductsController : ControllerBase
 {
     private readonly AppDbContext _context;
+    private readonly S3Service _s3Service;
 
-    public ProductsController(AppDbContext context)
+    public ProductsController(AppDbContext context, S3Service s3Service)
     {
         _context = context;
+        _s3Service = s3Service;
     }
 
     [HttpPost]
     [Authorize]
-    public IActionResult CreateProduct([FromForm] CreateProductDto dto)
+    public async Task<IActionResult> CreateProduct([FromForm] CreateProductDto dto)
     {
         if(dto.Image == null || dto.Image.Length == 0)
         {
             return BadRequest("Image is required");
         }
-
-        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(dto.Image.FileName);
-        //dot.image,filename is the name of the uploaded file, and Path.GetExtension is used to get the file extension (e.g. .jpg, .png)
-        //guid.NewGuid().ToString() is used to generate a unique filename for the uploaded file, which helps to avoid naming conflicts with other files
-
-        var filePath = Path.Combine("wwwroot","images", fileName);
-        //this points to wwwroot/images/3b8e27f4-a46d-43d6-95f5-c5d7d5a9d733.png
-
-        using (var stream = new FileStream(filePath, FileMode.Create))
-        {
-            dto.Image.CopyTo(stream);
-        }
+     
+        var imageUrl = await _s3Service.UploadFileAsync(dto.Image);
 
         var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
 
@@ -52,12 +45,12 @@ public class ProductsController : ControllerBase
             Name = dto.Name,
             Description = dto.Description,
             Price = dto.Price,
-            ImageUrl = "/images/" + fileName,
+            ImageUrl = imageUrl,
             UserId = int.Parse(userId)
         };
 
         _context.Products.Add(product);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
 
         return Ok("Product created successfully");
     }

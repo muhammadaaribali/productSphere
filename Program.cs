@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using sp1.Data;
-//import the AppDbContext class from the Data folder
+using sp1.Services;
 
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
@@ -8,6 +8,7 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 //create a new WebApplicationBuilder instance, which will be used to configure the application
 
+builder.Services.AddScoped<S3Service>();
 builder.Services.AddControllers(); 
 //add support for controllers, which will handle incoming HTTP requests and return responses
 
