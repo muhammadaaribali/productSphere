@@ -39,7 +39,7 @@ namespace sp1.Services
                 InputStream= file.OpenReadStream(),
                 //openreadstream is used to read the contents of the uploaded file as a stream, which can then be sent to S3 for storage
                 ContentType= file.ContentType,
-                //contenttype is used to set the MIME type of the uploaded file, which helps S3 to correctly identify and handle the file
+                //ContentType — sets the S3 object's Content-Type metadata, so when someone later fetches the file via URL, the browser/client knows how to handle it (e.g. image/png, application/pdf).
             };
 
             await _s3Client.PutObjectAsync(request);
