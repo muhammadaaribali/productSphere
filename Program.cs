@@ -29,7 +29,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy("ReactPolicy",
         policy =>
         {
-            policy.WithOrigins("http://localhost:5173","https://reliable-salmiakki-1c736c.netlify.app")
+            policy.WithOrigins("http://localhost:5173","https://realproduct-hub.netlify.app")
                   .AllowAnyHeader()
                   .AllowAnyMethod();
         });

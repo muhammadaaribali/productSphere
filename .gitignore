@@ -1,4 +1,6 @@
 bin/
 obj/
-.vs/
 appsettings.Development.json
+.vscode/
+frontend/node_modules/
+frontend/dist/
