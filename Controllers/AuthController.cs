@@ -3,8 +3,11 @@ using sp1.Data;
 using sp1.DTOs;
 using sp1.Models;
 using Microsoft.IdentityModel.Tokens;
+//import the necessary namespaces for JWT token generation and claims handling like symmetric security keys and signing credentials
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+//import the necessary namespaces for JWT token generation and claims handling
+
 using System.Text;
 
 namespace sp1.Controllers;
@@ -27,6 +30,7 @@ public class AuthController : ControllerBase
 
     private string GenerateJwtToken(User user)
 {
+    //array of claims objects that will be included in the JWT token. In this case, we are including the user's ID and email as claims.
     var claims = new[]
     {
         new Claim(
@@ -40,11 +44,15 @@ public class AuthController : ControllerBase
         )
     };
 
+    //create a new instance of SymmetricSecurityKey using the secret key from the appsettings.json file. The key is converted to a byte array using UTF8 encoding.
+    
     var key = new SymmetricSecurityKey(
         Encoding.UTF8.GetBytes(
             _configuration["Jwt:Key"]!
         )
     );
+    
+    //credentials object that will be used to sign the JWT token. In this case, we are using the HMAC SHA256 algorithm to sign the token with the symmetric security key.
 
     var credentials = new SigningCredentials(
         key,
@@ -61,6 +69,8 @@ public class AuthController : ControllerBase
 
     return new JwtSecurityTokenHandler()
         .WriteToken(token);
+        
+        //returns the generated JWT token as a string by using the JwtSecurityTokenHandler class to write the token to a string format.
 }
 
     [HttpPost("register")]
