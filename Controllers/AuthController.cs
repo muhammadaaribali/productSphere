@@ -7,6 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 //import the necessary namespaces for JWT token generation and claims handling
+using System.Security.Cryptography;
 
 using System.Text;
 
