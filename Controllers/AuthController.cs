@@ -73,6 +73,12 @@ public class AuthController : ControllerBase
         
         //returns the generated JWT token as a string by using the JwtSecurityTokenHandler class to write the token to a string format.
 }
+    private string GenerateRefreshToken()
+{
+    var randomBytes = RandomNumberGenerator.GetBytes(64);
+
+    return Convert.ToBase64String(randomBytes);
+}
 
     [HttpPost("register")]
     public IActionResult Register(RegisterDto dto)
