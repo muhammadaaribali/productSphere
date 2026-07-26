@@ -9,4 +9,7 @@ public class User
     public int CompanyId { get; set; }
 
     public  Company? Company { get; set; }
+    public ICollection<RefreshToken> RefreshTokens { get; set;} = new List<RefreshToken>();
+    //ICollection<RefreshToken> property is used to represent the one-to-many relationship between the User and RefreshToken entities. It allows a user to have multiple refresh tokens associated with their account.
+
 }
