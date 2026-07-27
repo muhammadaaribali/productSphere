@@ -122,10 +122,23 @@ public class AuthController : ControllerBase
             return Unauthorized("Invalid email or password");
         }
 
-        var token = GenerateJwtToken(user);
+        var accessToken = GenerateJwtToken(user);
+        var refreshToken = GenerateRefreshToken();
+
+        var refreshTokenEntity = new RefreshToken
+        {
+            Token = refreshToken,
+            Expires = DateTime.UtcNow.AddDays(7),
+            UserId = user.Id
+        };
+        //new RefreshToken is the object of the model class
+
+        _context.RefreshTokens.Add(refreshTokenEntity);
+        _context.SaveChanges();
+
         return Ok(new
         {
-            token = token
+            accessToken,refreshToken
         });
     }
 }
