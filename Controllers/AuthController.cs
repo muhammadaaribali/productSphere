@@ -141,4 +141,42 @@ public class AuthController : ControllerBase
             accessToken,refreshToken
         });
     }
+
+    [HttpPost("refresh")]
+    public IActionResult Refresh(RefreshTokenRequestDto dto)
+    {
+        var storedRefreshToken = _context.RefreshTokens.FirstOrDefault(rt => rt.Token == dto.RefreshToken);
+        //SELECT *
+        //FROM "RefreshTokens"
+        //WHERE "Token" ='provided_refresh_token' 
+
+        if(storedRefreshToken == null)
+        {
+            return Unauthorized("Invalid Refresh Token");
+        }
+
+        if(storedRefreshToken.Expires < DateTime.UtcNow)
+        {
+            return Unauthorized("Refresh Token Expired");
+        }
+
+        if(storedRefreshToken.IsRevoked)
+        {
+            return Unauthorized("Refresh Token Revoked");
+        }
+
+        var user= _context.Users.FirstOrDefault(u=> u.Id == storedRefreshToken.UserId);
+
+        if(user == null)
+        {
+            return Unauthorized("User not found");
+        }
+
+        var newAccessToken = GenerateJwtToken(user);
+
+        return Ok(new
+        {
+            accessToken = newAccessToken
+        });
+    }
 }
