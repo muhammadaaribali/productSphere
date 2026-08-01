@@ -174,9 +174,23 @@ public class AuthController : ControllerBase
 
         var newAccessToken = GenerateJwtToken(user);
 
+        storedRefreshToken.IsRevoked = true;
+        var newRefreshToken = GenerateRefreshToken();
+
+        var newRefreshTokenEntity = new RefreshToken
+        {
+            Token= newRefreshToken,
+            Expires= DateTime.UtcNow.AddDays(7),
+            UserId= user.Id
+        };
+
+        _context.RefreshTokens.Add(newRefreshTokenEntity);
+        _context.SaveChanges();
+
         return Ok(new
         {
-            accessToken = newAccessToken
+            accessToken = newAccessToken,
+            refreshToken = newRefreshToken
         });
     }
 }
