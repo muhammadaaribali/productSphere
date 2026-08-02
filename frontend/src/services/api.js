@@ -7,6 +7,19 @@ const api = axios.create({
   }
 });
 
+api.interceptors.request.use(
+  (config) => {
+    const accessToken = localStorage.getItem("accessToken");
+    if (accessToken){
+      config.headers.Authorization= `Bearer ${accessToken}`;
+    }
+    return config;
+  },
+    (error) => {
+      return Promise.reject(error);
+    }
+);
+
 export default api;
 
 //we create an instance of axios with a base URL, so we can easily make API calls to our backend without having to specify the full URL every time. 
