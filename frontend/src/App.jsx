@@ -4,8 +4,11 @@ import Products from "./pages/Products";
 import CreateProduct from "./pages/CreateProduct";
 import Register from "./pages/Register";
 import ProtectedRoute from "./ProtectedRoute";
+import useIdleLogout from "./hooks/useIdleLogout";;
 
 function App() {
+  
+  useIdleLogout();
   return (
     <BrowserRouter>
       <Routes>
