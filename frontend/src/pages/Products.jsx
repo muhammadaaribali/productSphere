@@ -14,6 +14,10 @@ function Products() {
                 try {
                         const response = await api.get("/Products");
                         setProducts(response.data);
+
+                        const profileResponse = await api.get("/Users/profile");
+
+                        console.log("PROFILE:", profileResponse.data);
                 }
 
                 catch (error) {
@@ -63,7 +67,7 @@ function Products() {
         <div className="products-stats">
 
                 <div className="stat-card">
-                        
+
                         <h3>Total Products</h3>
                         <h2>{products.length}</h2>
                 </div>

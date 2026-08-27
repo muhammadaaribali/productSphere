@@ -46,6 +46,71 @@ body{
     transform:translateY(-2px);
 }
 
+/* ================= PRODUCTS HEADER ================= */
+
+.products-header{
+    width:90%;
+    max-width:1300px;
+    margin:40px auto 25px;
+
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.products-header h1{
+    font-size:32px;
+    margin-bottom:8px;
+    color:#222;
+}
+
+.products-header p{
+    color:#777;
+    font-size:16px;
+}
+
+
+/* ================= PRODUCTS STATS ================= */
+
+.products-stats{
+    width:90%;
+    max-width:1300px;
+    margin:0 auto;
+
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.stat-card{
+    background:white;
+    padding:25px;
+    border-radius:14px;
+
+    box-shadow:0 8px 20px rgba(0,0,0,.06);
+
+    border:1px solid #e5e7eb;
+
+    transition:.3s;
+}
+
+.stat-card:hover{
+    transform:translateY(-4px);
+    box-shadow:0 12px 25px rgba(0,0,0,.1);
+}
+
+.stat-card h3{
+    color:#777;
+    font-size:15px;
+    font-weight:normal;
+    margin-bottom:10px;
+}
+
+.stat-card h2{
+    color:#2563eb;
+    font-size:32px;
+}
+
 /* ================= PRODUCTS ================= */
 
 .products-container{
