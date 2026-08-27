@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 function Products() {
         const [products, setProducts] = useState([]);
+        const navigate= useNavigate();
 
         useEffect(() => {
                 fetchProducts();
@@ -20,16 +21,15 @@ function Products() {
                 }
         };
 
-        const navigate = useNavigate();
-
         const handleLogout = () => {
-                localStorage.removeItem('token');
+                localStorage.removeItem('accessToken');
+                localStorage.removeItem('refreshToken');
                 navigate("/");
         }
 
         return (
 
-               <div className="products-page">
+        <div className="products-page">
 
         <div className="navbar">
 
@@ -47,6 +47,26 @@ function Products() {
 
             </div>
 
+        </div>
+
+        <div className="products-header">
+
+                <div>
+                        <h1>Products</h1>
+
+                        <p>
+                                Manage all your products
+                        </p>
+                </div>
+        </div>
+
+        <div className="products-stats">
+
+                <div className="stat-card">
+                        
+                        <h3>Total Products</h3>
+                        <h2>{products.length}</h2>
+                </div>
         </div>
 
         <div className="products-container">
