@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom";
 
 function Products() {
         const [products, setProducts] = useState([]);
+        const [user, setUser]= useState(null);
+        const [showMenu, setShowMenu]=useState(false);
         const navigate= useNavigate();
 
         useEffect(() => {
@@ -16,8 +18,7 @@ function Products() {
                         setProducts(response.data);
 
                         const profileResponse = await api.get("/Users/profile");
-
-                        console.log("PROFILE:", profileResponse.data);
+                        setUser(profileResponse.data);
                 }
 
                 catch (error) {
@@ -45,9 +46,59 @@ function Products() {
                     Add Product
                 </button>
 
-                <button onClick={handleLogout}>
-                    Logout
-                </button>
+                <div className="user-menu">
+
+                        <button 
+                        className="user-button"
+                        onClick={()=> setShowMenu(!showMenu)}
+                        >
+                          <span className="user-icon">\
+                                👤
+                          </span>
+
+                          <span>
+                                {user ? user.name: "User"}
+                          </span>
+
+                          <span>
+                                ▾
+                          </span>
+                        </button>
+
+                        {showMenu &&(
+                                <div className="dropdown-menu">
+                                        <div className="dropdown-user">
+                                                <Strong>
+                                                        {user?.name}
+                                                </Strong>
+                                                <span>
+                                                        {user?.email}
+                                                </span>
+                                        </div>
+
+                                        <button onClick={()=> navigate("/profile")}
+                                        >
+                                                Profile
+                                        </button>
+                                        <button>
+                                                Settings
+                                        </button>
+                                        <button>
+                                                Change Password
+                                        </button>
+
+                                        <div className="dropdown-divider"></div>
+
+                                        <button 
+                                        className="logout-button"
+                                        onClick={handleLogout}
+                                        >
+                                         Logout
+                                        </button>
+
+                                </div>
+                        )}
+                </div>
 
             </div>
 

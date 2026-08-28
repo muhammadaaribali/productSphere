@@ -46,6 +46,123 @@ body{
     transform:translateY(-2px);
 }
 
+/* ================= USER MENU ================= */
+
+.user-menu{
+    position:relative;
+}
+
+.user-button{
+    display:flex;
+    align-items:center;
+    gap:8px;
+
+    padding:12px 16px;
+
+    border:none;
+    border-radius:8px;
+
+    background:white;
+    color:#333;
+
+    font-size:15px;
+    cursor:pointer;
+
+    border:1px solid #ddd;
+
+    transition:.3s;
+}
+
+.user-button:hover{
+    background:#f5f7fa;
+}
+
+.user-icon{
+    font-size:18px;
+}
+
+
+/* ================= DROPDOWN ================= */
+
+.dropdown-menu{
+    position:absolute;
+
+    top:55px;
+    right:0;
+
+    width:240px;
+
+    background:white;
+
+    border-radius:12px;
+
+    box-shadow:0 10px 30px rgba(0,0,0,.15);
+
+    padding:8px;
+
+    z-index:1000;
+}
+
+
+.dropdown-user{
+    padding:12px;
+
+    display:flex;
+    flex-direction:column;
+
+    gap:4px;
+}
+
+.dropdown-user strong{
+    color:#222;
+}
+
+.dropdown-user span{
+    color:#777;
+    font-size:13px;
+}
+
+
+.dropdown-menu button{
+    width:100%;
+
+    text-align:left;
+
+    padding:11px 12px;
+
+    border:none;
+    border-radius:7px;
+
+    background:white;
+
+    color:#333;
+
+    cursor:pointer;
+
+    font-size:14px;
+}
+
+.dropdown-menu button:hover{
+    background:#f1f5f9;
+}
+
+
+.dropdown-divider{
+    height:1px;
+
+    background:#eee;
+
+    margin:6px 0;
+}
+
+
+.dropdown-menu .logout-button{
+    color:#dc2626;
+}
+
+.dropdown-menu .logout-button:hover{
+    background:#fef2f2;
+}
 /* ================= PRODUCTS HEADER ================= */
 
 .products-header{
