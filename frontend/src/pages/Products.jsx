@@ -52,7 +52,7 @@ function Products() {
                         className="user-button"
                         onClick={()=> setShowMenu(!showMenu)}
                         >
-                          <span className="user-icon">\
+                          <span className="user-icon">
                                 👤
                           </span>
 

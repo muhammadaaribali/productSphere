@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using sp1.Data;
+using sp1.DTOs;
 
 namespace sp1.Controllers;
 
@@ -45,4 +46,32 @@ public class UsersController : ControllerBase
         });
     }
 
+    [HttpPut("profile")]
+    [Authorize]
+    public async Task<IActionResult> UpdateProfile([FromBody] UpdateProfileDto dto)
+    {
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (userId == null)
+        {
+            return Unauthorized();
+        }
+
+        var user= await _context.Users.FindAsync(int.Parse(userId));
+
+        if(user == null)
+        {
+            return NotFound("User not found");
+        }
+
+        user.Name=dto.Name;
+
+        await _context.SaveChangesAsync();
+
+        return Ok( new
+        {
+            message= "Profile updated successfully",
+            name=user.Name
+        }); 
+    }
 }
