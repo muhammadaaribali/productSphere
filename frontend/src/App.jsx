@@ -4,7 +4,8 @@ import Products from "./pages/Products";
 import CreateProduct from "./pages/CreateProduct";
 import Register from "./pages/Register";
 import ProtectedRoute from "./ProtectedRoute";
-import useIdleLogout from "./hooks/useIdleLogout";;
+import useIdleLogout from "./hooks/useIdleLogout";
+import Profile from "./pages/Profile";
 
 function App() {
   
@@ -25,6 +26,11 @@ function App() {
             <CreateProduct />
           </ProtectedRoute>
         } />
+        <Route path="/profile" element={
+          <ProtectedRoute>
+            <Profile/>
+          </ProtectedRoute>}
+        />
       </Routes>
     </BrowserRouter>
   );
